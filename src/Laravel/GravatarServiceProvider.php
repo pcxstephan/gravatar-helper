@@ -20,7 +20,7 @@ class GravatarServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->package('distortedfusion/gravatar', 'distortedfusion/gravatar', __DIR__.'/..');
+        $this->package('distortedfusion/gravatar', 'distortedfusion/gravatar', __DIR__ . '/..');
     }
 
     /**
@@ -32,7 +32,11 @@ class GravatarServiceProvider extends ServiceProvider
     {
         $this->app['gravatar'] = $this->app->share(function($app)
         {
-            return new Gravatar();
+            return new Gravatar(
+                $app['config']['distortedfusion/gravatar::size'],
+                $app['config']['distortedfusion/gravatar::rating'],
+                $app['config']['distortedfusion/gravatar::image_set']
+            );
         });
     }
 }

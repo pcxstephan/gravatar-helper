@@ -3,7 +3,7 @@
 class Gravatar
 {
     /**
-     * URL constants for the Gravatar images.
+     * Gravatar URLs.
      *
      * @var string
      */
@@ -11,28 +11,25 @@ class Gravatar
     protected $httpsUrl = 'https://secure.gravatar.com/avatar/';
 
     /**
-     * Size in pixels, defaults to 80px.
-     * [ 1 - 2048 ]
+     * Size in pixels.
      *
      * @var integer
      */
     protected $size = 80;
 
     /**
-     * Maximum rating (inclusive)
-     * [ g | pg | r | x ]
+     * Maximum rating. (inclusive)
      *
      * @var string
      */
     protected $rating = 'g';
 
     /**
-     * Default imageset to use.
-     * [ 404 | mm | identicon | monsterid | wavatar ]
+     * Imageset used when no image is available.
      *
      * @var string
      */
-    protected $imageset = '404';
+    protected $imageSet = '404';
 
     /**
      * Available Gravatar ratings.
@@ -42,11 +39,33 @@ class Gravatar
     protected $availableRatings = array('g', 'pg', 'r', 'x');
 
     /**
-     * Available default imagesets.
+     * Available default image sets.
      *
      * @var array
      */
-    protected $availableImagesets = array('404', 'mm', 'identicon', 'monsterid', 'wavata');
+    protected $availableImageSets = array('404', 'mm', 'identicon', 'monsterid', 'wavata', 'retro', 'blank');
+
+    /**
+     * Initialize Gravatar Helper.
+     *
+     * @param int     $size
+     * @param string  $rating
+     * @param string  $imageSet
+     */
+    public function __construct($size = null, $rating = null, $imageSet = null)
+    {
+        if (! is_null($size)) {
+            $this->setSize($size);
+        }
+
+        if (! is_null($rating)) {
+            $this->setRating($rating);
+        }
+
+        if (! is_null($imageSet)) {
+            $this->setImageSet($imageSet);
+        }
+    }
 
     /**
      * Get gravatar image from email.
@@ -73,51 +92,50 @@ class Gravatar
      */
     public function url($email, $size = null, $secure = true)
     {
-        // Start building the URL, and deciding if we're doing this via HTTPS or HTTP.
-        $url = $secure ? $this->httpsUrl : $this->httpUrl;
+        if (! is_null($size)) {
+            $this->validateSize($size);
+        }
 
-        // Hash email.
+        $url = $secure ? $this->httpsUrl : $this->httpUrl;
         $url .= hash('md5', strtolower(trim($email)));
 
-        // Build the parameters
         $params = array();
         $params['s'] = $size ?: $this->size;
         $params['r'] = $this->rating;
-        $params['d'] = $this->imageset;
-        $url .= '?'.http_build_query(array_filter($params));
+        $params['d'] = $this->imageSet;
+        $url .= '?' . http_build_query(array_filter($params));
 
-        // And we're done.
         return $url;
     }
 
     /**
-     * Get Current imageset.
+     * Get image set.
      *
      * @return string
      */
-    public function getImageset()
+    public function getImageSet()
     {
-        return $this->imageset;
+        return $this->imageSet;
     }
 
     /**
-     * Set Gravatar rating.
+     * Set image set.
      *
-     * @param  string  $rating
+     * @param  string  $imageSet
      * @return void
      * @throws \InvalidArgumentException
      */
-    public function setImageset($imageset)
+    public function setImageSet($imageSet)
     {
-        if (! in_array($imageset, $this->availableImagesets)) {
-            throw new \InvalidArgumentException('Invalid Gravatar imageset');
+        if (! in_array($imageSet, $this->availableImageSets)) {
+            throw new \InvalidArgumentException('Invalid Gravatar image set.');
         }
 
-        $this->imageset = $imageset;
+        $this->imageSet = $imageSet;
     }
 
     /**
-     * Get Gravatar rating.
+     * Get rating.
      *
      * @return string
      */
@@ -127,7 +145,7 @@ class Gravatar
     }
 
     /**
-     * Set Gravatar rating.
+     * Set rating.
      *
      * @param  string  $rating
      * @return void
@@ -143,7 +161,7 @@ class Gravatar
     }
 
     /**
-     * Get Gravatar size.
+     * Get size.
      *
      * @return int
      */
@@ -153,7 +171,7 @@ class Gravatar
     }
 
     /**
-     * Set Gravatar size
+     * Set size.
      *
      * @param  string  $size
      * @return void
@@ -161,15 +179,27 @@ class Gravatar
      */
     public function setSize($size)
     {
+        $this->validateSize($size);
+
+        $this->size = $size;
+    }
+
+    /**
+     * Validate provided size.
+     *
+     * @param  int  $size
+     * @return boolean
+     * @throws \InvalidArgumentException
+     */
+    protected function validateSize($size)
+    {
         if (! is_int($size) && ! ctype_digit($size)) {
             throw new \InvalidArgumentException('Avatar size specified must be an integer');
         }
 
-        if ($size > 512 || $size < 0) {
-            throw new \InvalidArgumentException('Avatar size must be within 0 pixels and 512 pixels');
+        if ($size < 0 || $size > 2048) {
+            throw new \InvalidArgumentException('Avatar size must be within 0 pixels and 2048 pixels');
         }
-
-        $this->size = $size;
     }
 
     /**
