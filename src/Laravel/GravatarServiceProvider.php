@@ -1,42 +1,39 @@
-<?php namespace Distortedfusion\Gravatar\Laravel;
+<?php namespace Kevindierkx\GravatarHelper\Laravel;
 
-use Distortedfusion\Gravatar\Gravatar;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Foundation\AliasLoader;
+use Kevindierkx\GravatarHelper\Helper;
 
-class GravatarServiceProvider extends ServiceProvider
-{
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = false;
+class GravatarServiceProvider extends ServiceProvider {
 
-    /**
-     * Bootstrap the application events.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        $this->package('distortedfusion/gravatar', 'distortedfusion/gravatar', __DIR__ . '/..');
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function boot()
+	{
+		$this->package('kevindierkx/gravatar-helper', 'gravatar-helper', __DIR__ . '/..');
+	}
 
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->app['gravatar'] = $this->app->share(function($app)
-        {
-            return new Gravatar(
-                $app['config']['distortedfusion/gravatar::size'],
-                $app['config']['distortedfusion/gravatar::rating'],
-                $app['config']['distortedfusion/gravatar::image_set']
-            );
-        });
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function register()
+	{
+		$this->app->bindShared('gravatar', function ($app)
+		{
+			return new Helper(
+				$app['config']['gravatar-helper::size'],
+				$app['config']['gravatar-helper::rating'],
+				$app['config']['gravatar-helper::image_set']
+			);
+		});
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function provides()
+	{
+		return ['gravatar'];
+	}
+
 }

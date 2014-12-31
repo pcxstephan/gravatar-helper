@@ -1,88 +1,70 @@
-# Gravatar Helper - Distortedfusion
+## Gravatar Helper
 
-Helper package for creating Gravatar url's and image tags. This package comes with Laravel support by default.
+Helper package for creating Gravatar url's and image tags.
 
-## Package Installation
+### Installation
 
-### Manual Install
+To install this package you will need:
 
-You can manually install the package using composer. Add the following line to your composer.json file and run ```composer update```:
-```javascript
-"distortedfusion/gravatar": "~1.0.0"
+- Laravel 4.2+
+- PHP 5.4
+
+You must then modify your composer.json file and run composer update to include the latest version of the package in your project.
+
+```json
+"require": {
+	"kevindierkx/gravatar-helper": "~1.1"
+}
 ```
 
-### Provider and Alias for Laravel
+Or you can run the composer require command from your terminal.
 
-Add this line of code to the ```providers``` array located in your ```app/config/app.php``` file:
 ```php
-'Distortedfusion\Gravatar\Laravel\GravatarServiceProvider',
+composer require kevindierkx/gravatar-helper:1.1.*
 ```
 
-And this line to the ```aliases``` array:
+Once the package is installed you need to open ```app/config/app.php``` and register the required service provider.
+
 ```php
-'Gravatar' => 'Distortedfusion\Gravatar\Laravel\Facades\Gravatar',
+'providers' => [
+    'Kevindierkx\GravatarHelper\Laravel\GravatarServiceProvider'
+]
+```
+
+Optionaly you can add the following line to your aliases.
+
+```php
+'aliases' => [
+    'Gravatar'          => 'Kevindierkx\GravatarHelper\Laravel\Facades\Gravatar',
+]
 ```
 
 ### Configuration
 
-**Native**
-During creation you can specify the image size, rating and image set:
+Run the following command to publish the package configuration.
+
 ```php
-$gravatar = new \Distortedfusion\Gravatar\Gravatar($size, $rating, $imageSet);
+php artisan config:publish kevindierkx/gravatar-helper
 ```
 
-**On Runtime**
-You can set a different size, rating or image set on runtime using the following methods:
+### Usage
+
+To parse an image tag.
+
 ```php
-$gravatar->setSize($size);
-
-$gravatar->setRating($rating);
-
-$gravatar->setImageSet($imageSet);
+Gravatar::image('email@example.com');
 ```
 
-You can also get the currently set size, rating or image set using the following methods:
+Or to parse an url.
+
 ```php
-$gravatar->getSize();
-
-$gravatar->getRating();
-
-$gravatar->getImageSet();
+Gravatar::url('email@example.com');
 ```
 
-**Laravel**
-When using Laravel you can publish the configuration file using:
-```
-php artisan config:publish distortedfusion/gravatar
-```
-
-**On Runtime**
-You can set a different size, rating or image set on runtime using the following methods:
-```php
-Gravatar::setSize($size);
-
-Gravatar::setRating($rating);
-
-Gravatar::setImageSet($imageSet);
-```
-
-You can also get the currently set size, rating or image set using the following methods:
-```php
-Gravatar::getSize();
-
-Gravatar::getRating();
-
-Gravatar::getImageSet();
-```
-
-## Support
-
-Bugs and feature request are tracked on [GitHub](https://github.com/distortedfusion/gravatar/issues)
-
-## Credits
+### Credits
 
 - [Kevin Dierkx](https://github.com/kevindierkx)
 
-## License
+### License
 
-The MIT License (MIT). Please see [License File](https://github.com/distortedfusion/gravatar/blob/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/kevindierkx/gravatar-helper/blob/master/LICENSE) for more information.
