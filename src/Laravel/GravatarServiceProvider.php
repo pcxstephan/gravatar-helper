@@ -8,6 +8,11 @@ class GravatarServiceProvider extends ServiceProvider {
 	/**
 	 * {@inheritdoc}
 	 */
+	protected $defer = true;
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function boot()
 	{
 		$this->package('kevindierkx/gravatar-helper', 'gravatar-helper', __DIR__ . '/..');

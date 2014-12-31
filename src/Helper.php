@@ -35,7 +35,7 @@ class Helper {
 	/**
 	 * @var array
 	 */
-	protected $availableImageSets = ['404', 'mm', 'identicon', 'monsterid', 'wavata', 'retro', 'blank'];
+	protected $availableImageSets = ['404', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro', 'blank'];
 
 	/**
 	 * Initialize Gravatar Helper.
