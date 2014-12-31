@@ -7,6 +7,6 @@ class Gravatar extends Facade {
 	/**
 	 * {@inheritdoc}
 	 */
-	protected static function getFacadeAccessor() { return 'gravatar'; }
+	protected static function getFacadeAccessor() { return 'gravatar-helper'; }
 
 }
