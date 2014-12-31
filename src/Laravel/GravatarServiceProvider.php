@@ -23,7 +23,7 @@ class GravatarServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app->bindShared('gravatar', function ($app)
+		$this->app->bindShared('gravatar-helper', function ($app)
 		{
 			return new Helper(
 				$app['config']['gravatar-helper::size'],
@@ -38,7 +38,7 @@ class GravatarServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return ['gravatar'];
+		return ['gravatar-helper'];
 	}
 
 }
