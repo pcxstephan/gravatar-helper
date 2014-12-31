@@ -13,14 +13,14 @@ You must then modify your composer.json file and run composer update to include 
 
 ```json
 "require": {
-	"kevindierkx/gravatar-helper": "~1.1"
+	"kevindierkx/gravatar-helper": "~1.0"
 }
 ```
 
 Or you can run the composer require command from your terminal.
 
 ```php
-composer require kevindierkx/gravatar-helper:1.1.*
+composer require kevindierkx/gravatar-helper:1.0.*
 ```
 
 Once the package is installed you need to open ```app/config/app.php``` and register the required service provider.
@@ -53,12 +53,16 @@ To parse an image tag.
 
 ```php
 Gravatar::image('email@example.com');
+
+// <img src="https://secure.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e?s=80&r=g&d=404">
 ```
 
 Or to parse an url.
 
 ```php
 Gravatar::url('email@example.com');
+
+// https://secure.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e?s=80&r=g&d=404
 ```
 
 ### Credits
