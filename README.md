@@ -6,28 +6,28 @@ Helper package for creating Gravatar url's and image tags.
 
 To install this package you will need:
 
-- Laravel 4.2+
+- Laravel 5+
 - PHP 5.4
 
 You must then modify your composer.json file and run composer update to include the latest version of the package in your project.
 
 ```json
 "require": {
-	"kevindierkx/gravatar-helper": "~1.0"
+    "kevindierkx/gravatar-helper": "2.0.*"
 }
 ```
 
 Or you can run the composer require command from your terminal.
 
 ```php
-composer require kevindierkx/gravatar-helper:1.0.*
+composer require kevindierkx/gravatar-helper:2.0.*
 ```
 
 Once the package is installed you need to open ```app/config/app.php``` and register the required service provider.
 
 ```php
 'providers' => [
-    'Kevindierkx\GravatarHelper\Laravel\GravatarServiceProvider'
+    Kevindierkx\GravatarHelper\Providers\LaravelServiceProvider::class,
 ]
 ```
 
@@ -35,7 +35,7 @@ Optionaly you can add the following line to your aliases.
 
 ```php
 'aliases' => [
-    'Gravatar'          => 'Kevindierkx\GravatarHelper\Laravel\Facades\Gravatar',
+    'Gravatar' => Kevindierkx\GravatarHelper\Providers\Facades\Gravatar::class,
 ]
 ```
 
@@ -44,7 +44,7 @@ Optionaly you can add the following line to your aliases.
 Run the following command to publish the package configuration.
 
 ```php
-php artisan config:publish kevindierkx/gravatar-helper
+php artisan vendor:publish
 ```
 
 ### Usage
