@@ -3,7 +3,7 @@
 namespace Kevindierkx\GravatarHelper\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Kevindierkx\GravatarHelper\Helper;
+use Kevindierkx\GravatarHelper\Gravatar;
 
 class LaravelServiceProvider extends ServiceProvider
 {
@@ -31,7 +31,7 @@ class LaravelServiceProvider extends ServiceProvider
      */
     protected function setupConfig()
     {
-        $path = $source ?: realpath(__DIR__."/../../config/gravatar-helper.php");
+        $path = realpath(__DIR__."/../../config/gravatar-helper.php");
 
         $this->publishes([$path => config_path("gravatar-helper.php")]);
 
@@ -46,7 +46,7 @@ class LaravelServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('gravatar-helper', function ($app) {
-            return new Helper(
+            return new Gravatar(
                 $app['config']['gravatar-helper::size'],
                 $app['config']['gravatar-helper::rating'],
                 $app['config']['gravatar-helper::image_set']
