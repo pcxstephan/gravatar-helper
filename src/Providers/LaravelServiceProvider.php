@@ -47,9 +47,9 @@ class LaravelServiceProvider extends ServiceProvider
     {
         $this->app->singleton('gravatar-helper', function ($app) {
             return new Gravatar(
-                $app['config']['gravatar-helper::size'],
-                $app['config']['gravatar-helper::rating'],
-                $app['config']['gravatar-helper::image_set']
+                $app['config']->get('gravatar-helper.size'),
+                $app['config']->get('gravatar-helper.rating'),
+                $app['config']->get('gravatar-helper.image_set')
             );
         });
     }
