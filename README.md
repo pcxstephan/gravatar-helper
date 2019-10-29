@@ -7,7 +7,7 @@ Helper package for creating Gravatar url's and image tags.
 To install this package you will need:
 
 - Laravel 5+
-- PHP 5.4
+- PHP 5.3+
 
 You must then modify your composer.json file and run composer update to include the latest version of the package in your project.
 
