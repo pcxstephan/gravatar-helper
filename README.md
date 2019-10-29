@@ -13,14 +13,14 @@ You must then modify your composer.json file and run composer update to include 
 
 ```json
 "require": {
-    "kevindierkx/gravatar-helper": "2.0.*"
+    "pcxstephan/gravatar-helper": "3.0.*"
 }
 ```
 
 Or you can run the composer require command from your terminal.
 
 ```php
-composer require kevindierkx/gravatar-helper:2.0.*
+composer require pcxstephan/gravatar-helper:3.0.*
 ```
 
 Once the package is installed you need to open ```app/config/app.php``` and register the required service provider.
@@ -67,8 +67,8 @@ Gravatar::url('email@example.com');
 
 ### Credits
 
-- [Kevin Dierkx](https://github.com/kevindierkx)
+- [Kevin Dierkx](https://github.com/pcxstephan)
 
 ### License
 
-The MIT License (MIT). Please see [License File](https://github.com/kevindierkx/gravatar-helper/blob/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/pcxstephan/gravatar-helper/blob/master/LICENSE) for more information.
