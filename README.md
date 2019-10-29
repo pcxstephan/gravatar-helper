@@ -67,7 +67,8 @@ Gravatar::url('email@example.com');
 
 ### Credits
 
-- [Kevin Dierkx](https://github.com/pcxstephan)
+- [Kevin Dierkx](https://github.com/kevindierkx)
+- [Stephan van der Horn](https://github.com/pcxstephan)
 
 ### License
 
